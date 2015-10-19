@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<project name="florianajir/home-api" basedir="./" default="help">
+
+    <target name="help">
+        <echo>help     Shows this help</echo>
+        <echo>tests    Run tests</echo>
+        <echo>phpcs    Detects standard violations on the code.</echo>
+        <echo>phpcpd   Detects duplicate code portions.</echo>
+        <echo>phpunit  Executes phpunit tests</echo>
+        <echo>apidoc   Generates API reference</echo>
+    </target>
+
+    <target name="tests" depends="phpcs,phpmd,phpcpd,phpunit"/>
+
+    <target name="phpcs">
+        <phpcodesniffer standard="PSR2">
+            <fileset dir="./">
+                <include name="**/*.php" />
+                <exclude name="tests/" />
+                <exclude name="vendor/" />
+                <exclude name="build/" />
+                <exclude name="cache/" />
+                <exclude name="app/" />
+                <exclude name="bin/" />
+                <exclude name="web/" />
+            </fileset>
+        </phpcodesniffer>
+    </target>
+
+    <target name="phpmd">
+        <phpcodesniffer standard="PSR2">
+            <fileset dir="./">
+                <include name="**/*.php" />
+                <exclude name="tests/" />
+                <exclude name="vendor/" />
+                <exclude name="build/" />
+                <exclude name="cache/" />
+                <exclude name="app/" />
+                <exclude name="bin/" />
+                <exclude name="web/" />
+            </fileset>
+        </phpcodesniffer>
+    </target>
+
+    <target name="phpcpd">
+        <exec executable="./bin/phpcpd">
+            <arg path="./" />
+            <arg value="--exclude=vendor" />
+        </exec>
+    </target>
+
+    <target name="phpcpd">
+        <exec executable="./bin/phpcmd">
+            <arg path="./" />
+            <arg value="--exclude=vendor" />
+        </exec>
+    </target>
+
+    <target name="phpunit">
+        <exec logoutput="true" dir="./" command="./bin/phpunit" />
+    </target>
+
+</project>
